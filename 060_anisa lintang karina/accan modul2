@@ -1,0 +1,58 @@
+public class accan_modul2 {
+    public static void main(String[] args) {
+        System.out.println("--- Objek Karyawan 1 (Manual Gaji) ---");
+        Karyawan k1 = new Karyawan("salsa", "Manager", 10000000);
+        k1.tampilkanInfo();
+
+        System.out.println("\n--- Objek Karyawan 2 (Default Gaji) ---");
+        Karyawan k2 = new Karyawan("Budi", "Staff");
+        k2.tampilkanInfo();
+
+        System.out.println("\n--- Objek Karyawan Pajak ---");
+        KaryawanPajak kp = new KaryawanPajak("Dewi", "Supervisor", 7500000);
+        kp.tampilkanInfo();
+    }
+}
+
+class Karyawan {
+    String nama;
+    String jabatan;
+    int gajiPokok;
+
+    public Karyawan(String nama, String jabatan, int gajiPokok) {
+        this.nama = nama;
+        this.jabatan = jabatan;
+        this.gajiPokok = gajiPokok;
+    }
+
+    public Karyawan(String nama, String jabatan) {
+        this.nama = nama;
+        this.jabatan = jabatan;
+        this.gajiPokok = 5000000;
+    }
+
+    public double hitungGajiTotal() {
+        return gajiPokok + (0.1 * gajiPokok);
+    }
+
+    public void tampilkanInfo() {
+        System.out.println("Nama         : " + nama);
+        System.out.println("Jabatan      : " + jabatan);
+        System.out.println("Gaji Pokok   : " + gajiPokok);
+        System.out.println("Gaji Total   : " + hitungGajiTotal());
+    }
+}
+
+class KaryawanPajak extends Karyawan {
+    public KaryawanPajak(String nama, String jabatan, int gajiPokok) {
+        super(nama, jabatan, gajiPokok);
+    }
+    public double hitungPajak() {
+        return 0.05 * hitungGajiTotal();
+    }
+    public void tampilkanInfo() {
+        super.tampilkanInfo();
+        System.out.println("Pajak (5%)   : " + hitungPajak());
+        System.out.println("Total Bayar  : " + (hitungGajiTotal() - hitungPajak()));
+    }
+}
