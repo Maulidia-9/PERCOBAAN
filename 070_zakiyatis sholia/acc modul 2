@@ -1,0 +1,23 @@
+public class Pegawai {
+
+    String nama, jabatan;
+    double gaji;
+
+    public Pegawai() {
+        nama = "zakya";
+        jabatan = "meneger";
+        gaji = 10000000;
+    }
+   
+
+    void tampilkanInfo() {
+        System.out.println("Nama    : " + nama);
+        System.out.println("Jabatan : " + jabatan);
+        System.out.println("Gaji    : " + gaji);
+    }
+
+    public static void main(String[] args) {
+        Pegawai pegawai1 = new Pegawai();
+        pegawai1.tampilkanInfo();
+    }
+}  
