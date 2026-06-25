@@ -1,0 +1,120 @@
+public class Karyawan {
+    String nama, jabatan;
+    int gajiPokok;
+
+    public Karyawan(String nama, String jabatan, int gajiPokok) {
+        this.nama = nama;
+        this.jabatan = jabatan;
+        this.gajiPokok = gajiPokok;
+    }
+
+    public Karyawan(String nama, String jabatan) {
+        this.nama = nama;
+        this.jabatan = jabatan;
+        this.gajiPokok = 5000000;
+    }
+
+    public double hitungGajiTotal() {
+        return gajiPokok + (0.1 * gajiPokok);
+    }
+
+    void tampilkanInfo() {
+        System.out.println("Nama        : " + nama);
+        System.out.println("Jabatan     : " + jabatan);
+        System.out.println("Gaji Pokok  : " + gajiPokok);
+        System.out.println("Gaji Total  : " + hitungGajiTotal());
+    }
+}
+
+class KaryawanPajak extends Karyawan {
+    public KaryawanPajak(String nama, String jabatan, int gajiPokok) {
+        super(nama, jabatan, gajiPokok); 
+    }
+
+    public double hitungPajak() {
+        return 0.05 * hitungGajiTotal();
+    }
+
+    @Override
+    void tampilkanInfo() {
+        super.tampilkanInfo();
+        System.out.println("Pajak (5%)  : " + hitungPajak());
+        System.out.println("Gaji Bersih : " + (hitungGajiTotal() - hitungPajak()));
+    }
+}
+
+ class Pegawai {
+    public static void main(String[] args) {
+        System.out.println("=== DATA KARYAWAN ===");
+        Karyawan k1 = new Karyawan("Sasi", "Programmer", 10000000);
+        k1.tampilkanInfo();
+        
+        System.out.println("\n---");
+        Karyawan k2 = new Karyawan("Kia", "Manager", 15000000);
+        k2.tampilkanInfo();
+
+        System.out.println("\n=== DATA KARYAWAN PAJAK ===");
+        KaryawanPajak kp = new KaryawanPajak("Karin", "Admin", 8000000);
+        kp.tampilkanInfo();
+    }
+}
+public class Karyawan {
+    String nama, jabatan;
+    int gajiPokok;
+
+    public Karyawan(String nama, String jabatan, int gajiPokok) {
+        this.nama = nama;
+        this.jabatan = jabatan;
+        this.gajiPokok = gajiPokok;
+    }
+
+    public Karyawan(String nama, String jabatan) {
+        this.nama = nama;
+        this.jabatan = jabatan;
+        this.gajiPokok = 5000000;
+    }
+
+    public double hitungGajiTotal() {
+        return gajiPokok + (0.1 * gajiPokok);
+    }
+
+    void tampilkanInfo() {
+        System.out.println("Nama        : " + nama);
+        System.out.println("Jabatan     : " + jabatan);
+        System.out.println("Gaji Pokok  : " + gajiPokok);
+        System.out.println("Gaji Total  : " + hitungGajiTotal());
+    }
+}
+
+class KaryawanPajak extends Karyawan {
+    public KaryawanPajak(String nama, String jabatan, int gajiPokok) {
+        super(nama, jabatan, gajiPokok); 
+    }
+
+    public double hitungPajak() {
+        return 0.05 * hitungGajiTotal();
+    }
+
+    @Override
+    void tampilkanInfo() {
+        super.tampilkanInfo();
+        System.out.println("Pajak (5%)  : " + hitungPajak());
+        System.out.println("Gaji Bersih : " + (hitungGajiTotal() - hitungPajak()));
+    }
+}
+
+ class Pegawai {
+    public static void main(String[] args) {
+        System.out.println("=== DATA KARYAWAN ===");
+        Karyawan k1 = new Karyawan("Sasi", "Programmer", 10000000);
+        k1.tampilkanInfo();
+        
+        System.out.println("\n---");
+        Karyawan k2 = new Karyawan("Kia", "Manager", 15000000);
+        k2.tampilkanInfo();
+
+        System.out.println("\n=== DATA KARYAWAN PAJAK ===");
+        KaryawanPajak kp = new KaryawanPajak("Karin", "Admin", 8000000);
+        kp.tampilkanInfo();
+    }
+}
