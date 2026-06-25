@@ -1,0 +1,24 @@
+package transaksi; 
+ 
+public class Pembayaran { 
+ 
+    public String metode; 
+    protected int jumlahBayar; 
+    private int kembalian; 
+ 
+    public Pembayaran(String metode, 
+                      int jumlahBayar) { 
+ 
+        this.metode = metode; 
+        this.jumlahBayar = jumlahBayar; 
+    } 
+ 
+    public void hitungKembalian(int totalHarga) { 
+ 
+        kembalian = jumlahBayar - totalHarga; 
+ 
+        System.out.println("Metode Bayar : " + metode); 
+        System.out.println("Jumlah Bayar : " + jumlahBayar); 
+        System.out.println("Kembalian    : " + kembalian); 
+    } 
+} 
