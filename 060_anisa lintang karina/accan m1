@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+class Trapesium {
+
+    double sisiAtas;
+    double sisiBawah;
+    double tinggiTrapesium;
+    double tinggiPrisma;
+
+    double hitungLuasAlas() {
+        return (sisiAtas + sisiBawah) / 2 * tinggiTrapesium;
+    }
+
+    double hitungVolume() {
+        return hitungLuasAlas() * tinggiPrisma;
+    }
+}
+
+public class accan__modul1 {
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+      
+        Trapesium tp = new Trapesium();
+
+        // Input user
+        System.out.print("Masukkan sisi atas trapesium   : ");
+        tp.sisiAtas = input.nextDouble();
+
+        System.out.print("Masukkan sisi bawah trapesium  : ");
+        tp.sisiBawah = input.nextDouble();
+
+        System.out.print("Masukkan tinggi trapesium      : ");
+        tp.tinggiTrapesium = input.nextDouble();
+
+        System.out.print("Masukkan tinggi prisma         : ");
+        tp.tinggiPrisma = input.nextDouble();
+
+        // Output
+        System.out.println("\nLuas Alas Trapesium  : " + tp.hitungLuasAlas());
+        System.out.println("Volume Trapesium    : " + tp.hitungVolume());
+    }
+}
