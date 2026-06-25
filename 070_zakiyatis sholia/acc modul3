@@ -1,0 +1,70 @@
+import java.util.Scanner; 
+ 
+class Pegawai {     String nama; 
+    int gajiPokok = 1000000; 
+ 
+    Pegawai(String nama) { 
+        this.nama = nama; 
+    } 
+ 
+    int hitungGaji() { 
+        return gajiPokok; 
+    } 
+ 
+    void tampil() { 
+        System.out.println("Nama: " + nama); 
+        System.out.println("Total Gaji: Rp" + hitungGaji()); 
+    } 
+} 
+class Kasir extends Pegawai {     int hadir; 
+ 
+    Kasir(String nama, int hadir) {         super(nama);         this.hadir = hadir; 
+    } 
+ 
+    @Override 
+    int hitungGaji() { 
+        return gajiPokok + (hadir * 5000); 
+    } 
+} 
+class Pramuniaga extends Pegawai { 
+    int hadir, lembur; 
+ 
+    Pramuniaga(String nama, int hadir, int lembur) {         super(nama);         this.hadir = hadir; 
+        this.lembur = lembur; 
+    } 
+ 
+    @Override     int hitungGaji() { 
+        return gajiPokok + (hadir * 5000) + (lembur * 20000); 
+    } 
+} 
+public class Main {     public static void main(String[] args) {         Scanner input = new Scanner(System.in); 
+ 
+        System.out.print("Masukkan jumlah pegawai: ");         int jumlah = input.nextInt();         input.nextLine(); 
+ 
+        Pegawai[] data = new Pegawai[jumlah]; 
+ 
+        for (int i = 0; i < jumlah; i++) { 
+            System.out.println("\nPegawai ke-" + (i + 1)); 
+            System.out.print("Nama: "); 
+            String nama = input.nextLine(); 
+ 
+            System.out.print("Pilih jenis (1=Kasir, 2=Pramuniaga): ");             int pilih = input.nextInt(); 
+ 
+            System.out.print("Jumlah hadir: ");             int hadir = input.nextInt(); 
+ 
+            if (pilih == 1) { 
+                data[i] = new Kasir(nama, hadir); 
+            } else { 
+                System.out.print("Jumlah lembur: "); 
+                int lembur = input.nextInt(); 
+                data[i] = new Pramuniaga(nama, hadir, lembur); 
+            } 
+            input.nextLine(); 
+        } 
+ 
+         
+        System.out.println("\n=== DATA GAJI PEGAWAI ===");         for (Pegawai p : data) {             p.tampil(); 
+            System.out.println("------------------"); 
+        } 
+    } 
+} 
