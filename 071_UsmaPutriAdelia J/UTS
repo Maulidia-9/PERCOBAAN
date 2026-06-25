@@ -20,7 +20,103 @@ abstract void tampil(Siswa s);
 class SPP extends Transaksi {
 String bulan;
 int pokok, tgl, denda;
+this.tgl = tgl;
+}
 
+int hitungTotal() { // override
+denda = (tgl > 10) ? 15000 : 0;
+return pokok + admin + denda;
+}
+
+void tampil(Siswa s) {
+
+System.out.println("\n===[SPP]===");
+System.out.println(s.nama + " | " + s.nis);
+System.out.println("Bulan : " + bulan);
+System.out.println("Pokok : " + pokok);
+System.out.println("Denda : " + denda);
+System.out.println("Admin : " + admin );
+System.out.println("Total : " + hitungTotal());
+}
+}
+
+// SUBCLASS SERAGAM
+class Seragam extends Transaksi {
+String ukuran;
+int dasar, tambahan;
+
+Seragam(String ukuran, int dasar) { // constructor
+this.ukuran = ukuran;
+this.dasar = dasar;
+}
+
+int hitungTotal() { // override
+tambahan = ukuran.equalsIgnoreCase("XL") ? 20000 : 0 ;
+return dasar + admin + tambahan;
 SPP(String bulan, int pokok, int tgl) { // constructor
 this.bulan = bulan;
 this.pokok = pokok;
+}
+
+void tampil(Siswa s) {
+System.out.println("\n===[SERAGAM]===");
+System.out.println(s.nama + " | " + s.nis);
+System.out.println("Ukuran : " + ukuran);
+System.out.println("Dasar : " + dasar);
+System.out.println("Tambahan : " + tambahan);
+System.out.println("Admin : " + admin);
+System.out.println("Total : " + hitungTotal());
+}
+}
+
+public class UTSKeuangan {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+
+// LOGIN
+System.out.println("===LOGIN===");
+System.out.print("ID: ");
+String id = sc.next();
+System.out.print("Pass: ");
+String pass = sc.next();
+
+System.out.println(
+(id.equals("admin") && pass.equals("123"))
+? "Admin Mode"
+: "Siswa Mode"
+);
+
+// INPUT SISWA
+System.out.print("Nama: ");
+String nama = sc.next();
+System.out.print("NIS: ");
+String nis = sc.next();
+
+Siswa s = new Siswa(nama, nis);
+
+// PILIH TRANSAKSI
+System.out.println("\n1. SPP\n2. Seragam");
+int pilih = sc.nextInt();
+
+Transaksi t; // polymorphism (reference parent)
+
+if (pilih == 1) {
+System.out.print("Bulan: ");
+String bulan = sc.next();
+System.out.print("Tanggal: ");
+int tgl = sc.nextInt();
+System.out.print("Pokok: ");
+int pokok = sc.nextInt();
+
+t = new SPP(bulan, pokok, tgl); // polymorphism
+} else {
+System.out.println("Ukuran(S/M/L/XL) ");
+System.out.print("(XL dikenai biaya tambahan"
++ " sebesar 15000):");
+String ukuran = sc.next();
+System.out.print("Harga: ");
+int harga = sc.nextInt();
+
+t = new Seragam(ukuran, harga); // polymorphism
+}
+}
