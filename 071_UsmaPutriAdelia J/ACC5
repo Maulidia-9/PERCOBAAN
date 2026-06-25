@@ -1,0 +1,77 @@
+package app;
+
+import java.util.Scanner;
+
+import model.Pelanggan;
+import model.Tiket;
+import service.PemesananService;
+import service.PembayaranService;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        Menu menu = new Menu();
+        menu.tampilkanMenu();
+
+        System.out.print("Nama Pelanggan : ");
+        String nama = input.nextLine();
+
+        System.out.print("ID Pelanggan : ");
+        String id = input.nextLine();
+
+        Pelanggan pelanggan = new Pelanggan(nama, id);
+
+        System.out.print("Pilih Tiket (1-3) : ");
+        int pilihan = input.nextInt();
+
+        Tiket tiket = null;
+
+        switch (pilihan) {
+            case 1:
+                tiket = new Tiket("Festival", 150000);
+                break;
+            case 2:
+                tiket = new Tiket("VIP", 300000);
+                break;
+            case 3:
+                tiket = new Tiket("VVIP", 500000);
+                break;
+            default:
+                System.out.println("Pilihan tidak tersedia!");
+                System.exit(0);
+        }
+
+        System.out.print("Jumlah Tiket : ");
+        int jumlah = input.nextInt();
+
+        PemesananService pesan = new PemesananService(jumlah);
+
+        double total = pesan.hitungTotal(tiket);
+
+        System.out.println("\n===== DETAIL PEMESANAN =====");
+        System.out.println("Nama Pelanggan : " + pelanggan.getNama());
+        System.out.println("ID Pelanggan   : " + pelanggan.getIdPelanggan());
+        System.out.println("Jenis Tiket    : " + tiket.getJenis());
+        System.out.println("Jumlah Tiket   : " + jumlah);
+        System.out.println("Total Bayar    : Rp" + total);
+
+        System.out.print("\nMasukkan Uang Pembayaran : Rp");
+        double bayar = input.nextDouble();
+
+        PembayaranService pembayaran =
+                new PembayaranService(total);
+
+        double kembalian =
+                pembayaran.hitungKembalian(bayar);
+
+        System.out.println("\n===== STRUK PEMBAYARAN =====");
+        System.out.println("Total Bayar : Rp" + total);
+        System.out.println("Uang Bayar  : Rp" + bayar);
+        System.out.println("Kembalian   : Rp" + kembalian);
+
+        input.close();
+}
+}
