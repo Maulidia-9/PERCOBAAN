@@ -1,0 +1,128 @@
+import java.util.Scanner;
+
+// 1. Implementasi ABSTRACT CLASS
+// Class ini menjadi kerangka dasar yang tidak bisa diinstansiasi langsung
+abstract class DataKaryawan {
+    // Atribut dasar karyawan
+    String nama;
+    String jabatan;
+    int kehadiran;
+    int jamLembur;
+    
+    // 2. Implementasi FINAL KEYWORD
+    // Konstanta yang nilainya mutlak dan tidak bisa diubah (tetap)
+    final double UPAH_HARIAN = 120000; // per hari
+    final double UPAH_LEMBUR = 45000; // perjam
+    
+    // Constructor untuk inisialisasi awal objek
+    public DataKaryawan(String nama, String jabatan, int kehadiran, 
+           int jamLembur) {
+        this.nama = nama;
+        this.jabatan = jabatan;
+        this.kehadiran = kehadiran;
+        this.jamLembur = jamLembur;
+    }
+    
+    // 3. Implementasi ABSTRACT METHOD
+    // Method ini wajib didefinisikan ulang (Override) di class turunannya
+    abstract double hitungGaji();
+    abstract String jadwalGaji(double totalGaji);
+    
+    // Method biasa (Concrete) untuk menampilkan rekap data ke layar
+    public void cetakData() {
+        double totalGaji = hitungGaji();
+        System.out.println("\n==================================");
+        System.out.println("    RINCIAN GAJI KARYAWAN");
+        System.out.println("==================================");
+        System.out.println("Nama             : " + nama);
+        System.out.println("Jabatan          : " + jabatan);
+        System.out.println("Jumlah Kehadiran : " + kehadiran + " hari");
+        System.out.println("Jumlah Lembur    : " + jamLembur + " jam");
+        // String.format digunakan agar tampilan nominal gaji lebih rapi 
+        //(tanpa desimal yang tidak perlu)
+        System.out.println("Total Gaji       : Rp " + String.format("%,.0f", 
+                totalGaji));
+        System.out.println("Jadwal Pembagian : Hari " + jadwalGaji(totalGaji));
+        System.out.println("==================================\n");
+    }
+}
+
+// Class turunan (Subclass) yang mewarisi DataKaryawan
+class Karyawan extends DataKaryawan {
+
+    // Memanggil constructor dari class induk (super)
+    public Karyawan(String nama, String jabatan, int kehadiran, int jamLembur) {
+        super(nama, jabatan, kehadiran, jamLembur);
+    }
+
+    // Meng-override abstract method untuk menghitung gaji sesuai rumus
+    @Override
+    double hitungGaji() {
+        double gajiPokok = kehadiran * UPAH_HARIAN;
+        double uangLembur = jamLembur * UPAH_LEMBUR;
+        double bonus = 0;
+        
+        // Logika penentuan bonus sesuai jumlah hari kerja
+        if (kehadiran >= 26) {
+            bonus = 750000;
+        } else if (kehadiran >= 20) {
+            bonus = 450000;
+        }
+        
+        return gajiPokok + uangLembur + bonus;
+    }
+
+    // Meng-override abstract method untuk menentukan jadwal turun gaji
+    @Override
+    String jadwalGaji(double totalGaji) {
+        // Catatan: Range < 1.500.000 digabung ke Senin untuk menutupi 
+        // celah angka antara 1.000.000 hingga 1.500.000 agar program 
+        //tidak error
+        if (totalGaji < 1500000) { 
+            return "Senin";
+        } else if (totalGaji >= 1500000 && totalGaji <= 2500000) {
+            return "Selasa";
+        } else if (totalGaji > 2500000 && totalGaji <= 3500000) {
+            return "Rabu";
+        } else if (totalGaji > 3500000 && totalGaji <= 4500000) {
+            return "Kamis";
+        } else if (totalGaji > 4500000 && totalGaji <= 5500000) {
+            return "Jumat";
+        } else {
+            return "Sabtu"; // Kondisi jika gaji > 5.500.000
+        }
+    }
+}
+
+// Main Class sebagai titik eksekusi program
+public class acc {
+    public static void main(String[] args) {
+        // Inisialisasi Scanner untuk mengambil inputan dari keyboard
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("--- INPUT DATA GAJI KARYAWAN ---");
+        
+        System.out.print("Masukkan Nama Karyawan        : ");
+        String nama = input.nextLine();
+        
+        System.out.print("Masukkan Jabatan              : ");
+        String jabatan = input.nextLine();
+        
+        System.out.print("Masukkan Jumlah Kehadiran     : ");
+        int kehadiran = input.nextInt();
+        
+        System.out.print("Masukkan Jumlah Jam Lembur    : ");
+        int jamLembur = input.nextInt();
+        
+        // Instansiasi objek Karyawan 
+        DataKaryawan karyawan1 = new Karyawan(nama, jabatan, kehadiran, 
+                jamLembur);
+        
+        // Menjalankan method untuk mengkalkulasi dan mencetak hasil
+        karyawan1.cetakData();
+        
+        // Menutup scanner untuk mencegah memory leak
+        input.close();
+    }
+}
+
