@@ -1,0 +1,90 @@
+class Pegawai {
+    String nik, nama;
+    int kehadiran;
+
+    Pegawai(String nik, String nama, int kehadiran) {
+        this.nik = nik;
+        this.nama = nama;
+        this.kehadiran = kehadiran;
+    }
+
+    int hitungGaji() {
+        return 0;
+    }
+
+    void lihatData() {
+        System.out.println("NIK      : " + nik);
+        System.out.println("Nama     : " + nama);
+        System.out.println("Kehadiran: " + kehadiran);
+        System.out.println("Gaji     : " + hitungGaji());
+        System.out.println("---------------------------");
+    }
+}
+
+// Pegawai Kontrak
+class PegawaiKontrak extends Pegawai {
+    int gaji;
+    int uangMakan;
+
+    PegawaiKontrak(String nik, String nama, int kehadiran, int gaji) {
+        super(nik, nama, kehadiran);
+        this.gaji = gaji;
+        this.uangMakan = 12000 * kehadiran;
+    }
+
+    @Override
+    int hitungGaji() {
+        return gaji + uangMakan;
+    }
+}
+
+// Pegawai Magang
+class PegawaiMagang extends Pegawai {
+    int gaji;
+    int uangMakan;
+
+    PegawaiMagang(String nik, String nama, int kehadiran, int gaji) {
+        super(nik, nama, kehadiran);
+        this.gaji = gaji;
+        this.uangMakan = 10000 * kehadiran;
+    }
+
+    @Override
+    int hitungGaji() {
+        return gaji + uangMakan;
+    }
+}
+
+// Pegawai Tetap
+class PegawaiTetap extends Pegawai {
+    int gaji;
+    int tunjangan = 720000;
+    int uangMakan;
+
+    PegawaiTetap(String nik, String nama, int kehadiran, int gaji) {
+        super(nik, nama, kehadiran);
+        this.gaji = gaji;
+        this.uangMakan = 12000 * kehadiran;
+    }
+
+    @Override
+    int hitungGaji() {
+        return gaji + uangMakan + tunjangan;
+    }
+}
+
+// Main class
+public class NewMain {
+    public static void main(String[] args) {
+
+        // Polymorphism (pakai tipe induk)
+        Pegawai p1 = new PegawaiKontrak("001", "Andi", 20, 3000000);
+        Pegawai p2 = new PegawaiMagang("002", "Budi", 22, 1500000);
+        Pegawai p3 = new PegawaiTetap("003", "Citra", 25, 4000000);
+
+        System.out.println("=== DATA PEGAWAI ===");
+        p1.lihatData();
+        p2.lihatData();
+        p3.lihatData();
+    }
+}
