@@ -1,0 +1,21 @@
+package produk; 
+ 
+public class Kategori { 
+ 
+    public String namaKategori; 
+    protected String deskripsi; 
+    private int kodeKategori; 
+ 
+    public Kategori(String namaKategori, 
+                    String deskripsi, 
+                    int kodeKategori) { 
+ 
+        this.namaKategori = namaKategori; 
+        this.deskripsi = deskripsi; 
+        this.kodeKategori = kodeKategori; 
+    } 
+ 
+    public void tampilKategori() { 
+        System.out.println("Kategori : " + namaKategori); 
+    } 
+}
