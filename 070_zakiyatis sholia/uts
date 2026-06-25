@@ -1,0 +1,128 @@
+import java.util.ArrayList; import java.util.Scanner; 
+ 
+ 
+class Pembayaran { 
+    String nama, nis; 
+ 
+    Pembayaran(String nama, String nis) {         this.nama = nama;         this.nis = nis; 
+    } 
+ 
+    int hitungTotal() {         return 0; 
+    } 
+} 
+ 
+class SPP extends Pembayaran {     String bulan; 
+    int biayaPokok, denda = 0; 
+ 
+    SPP(String nama, String nis, String bulan, int biayaPokok, int tanggalBayar) 
+{ 
+        super(nama, nis);         this.bulan = bulan;         this.biayaPokok = biayaPokok; 
+ 
+        if (tanggalBayar > 10) {             denda = 15000; 
+        } 
+    } 
+ 
+    @Override     int hitungTotal() {         return biayaPokok + 5000 + denda; 
+    } 
+ 
+    void tampil() { 
+        System.out.println("\n=== PEMBAYARAN SPP ==="); 
+        System.out.println("Nama: " + nama); 
+        System.out.println("NIS: " + nis); 
+        System.out.println("Bulan: " + bulan); 
+        System.out.println("Biaya Pokok: " + biayaPokok); 
+        System.out.println("Denda: " + denda); 
+        System.out.println("Total: " + hitungTotal()); 
+    } 
+} 
+ 
+class Seragam extends Pembayaran {     String ukuran;     int hargaDasar, tambahan = 0; 
+ 
+    Seragam(String nama, String nis, String ukuran, int hargaDasar) {         super(nama, nis);         this.ukuran = ukuran;         this.hargaDasar = hargaDasar; 
+ 
+        if (ukuran.equalsIgnoreCase("XL")) {             tambahan = 20000; 
+        } 
+    } 
+ 
+ 
+        int hitungTotal(int admin) {         return hargaDasar + tambahan + admin; 
+    } 
+ 
+    @Override     int hitungTotal() {         return hitungTotal(5000); 
+    } 
+ 
+    void tampil() { 
+        System.out.println("\n=== PEMBELIAN SERAGAM ==="); 
+        System.out.println("Nama: " + nama); 
+        System.out.println("NIS: " + nis); 
+        System.out.println("Ukuran: " + ukuran); 
+        System.out.println("Harga Dasar: " + hargaDasar); 
+        System.out.println("Tambahan: " + tambahan); 
+        System.out.println("Total: " + hitungTotal()); 
+    } 
+} 
+ 
+ 
+public class Main { 
+    static Scanner sc = new Scanner(System.in); 
+ 
+    static ArrayList<String> nisList = new ArrayList<>(); 
+ 
+    public static void main(String[] args) {         System.out.println("=== LOGIN ==="); 
+        System.out.print("Masukkan ID (NIS/Admin): "); 
+        String id = sc.nextLine(); 
+ 
+        System.out.print("MasukkDan Password: "); 
+        String pass = sc.nextLine(); 
+ 
+        // LOGIN ADMIN         if (id.equals("admin") && pass.equals("123")) {             menuAdmin(); 
+        } 
+        // LOGIN SISWA 
+        else {             menuSiswa(id); 
+        } 
+    } 
+ 
+    static void menuAdmin() { 
+        System.out.println("\n=== LOGIN ADMIN BERHASIL ===");         System.out.println("Admin bisa melihat data siswa (dummy)"); 
+    } 
+ 
+    static void menuSiswa(String nis) { 
+        System.out.println("\n=== LOGIN SISWA BERHASIL ==="); 
+ 
+        System.out.print("Masukkan Nama: "); 
+        String nama = sc.nextLine(); 
+ 
+        int pilih;         do { 
+            System.out.println("\n1. Bayar SPP"); 
+            System.out.println("2. Beli Seragam"); 
+            System.out.println("0. Keluar");             System.out.print("Pilih: ");             pilih = sc.nextInt(); 
+ 
+            if (pilih == 1) {                 bayarSPP(nama, nis);             } else if (pilih == 2) {                 beliSeragam(nama, nis); 
+            } 
+ 
+        } while (pilih != 0); 
+    } 
+ 
+    static void bayarSPP(String nama, String nis) {         sc.nextLine(); 
+ 
+        System.out.print("Bulan: "); 
+        String bulan = sc.nextLine(); 
+ 
+        System.out.print("Biaya Pokok: ");         int biaya = sc.nextInt(); 
+ 
+        System.out.print("Tanggal Bayar: ");         int tanggal = sc.nextInt(); 
+ 
+        SPP spp = new SPP(nama, nis, bulan, biaya, tanggal);         spp.tampil(); 
+    } 
+ 
+    static void beliSeragam(String nama, String nis) {         sc.nextLine(); 
+ 
+        System.out.print("Ukuran (S/M/L/XL): "); 
+        String ukuran = sc.nextLine(); 
+ 
+        System.out.print("Harga Dasar: ");         int harga = sc.nextInt(); 
+ 
+        Seragam s = new Seragam(nama, nis, ukuran, harga); 
+        s.tampil(); 
+ 
+  
