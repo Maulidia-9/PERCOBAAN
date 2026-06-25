@@ -1,0 +1,51 @@
+package tes;
+
+import java.util.Scanner;
+
+// Class bangun ruang
+class PrismaTrapesium {
+    private double sisiAtas;
+    private double sisiBawah;
+    private double tinggiTrapesium;
+    private double tinggiPrisma;
+
+    public PrismaTrapesium(double sisiAtas, double sisiBawah,
+                           double tinggiTrapesium, double tinggiPrisma) {
+        this.sisiAtas = sisiAtas;
+        this.sisiBawah = sisiBawah;
+        this.tinggiTrapesium = tinggiTrapesium;
+        this.tinggiPrisma = tinggiPrisma;
+    }
+
+    public double hitungVolume() {
+        double luasAlas = 0.5 * (sisiAtas + sisiBawah) * tinggiTrapesium;
+        return luasAlas * tinggiPrisma;
+    }
+}
+
+public class ACC1 {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("=== PROGRAM MENGHITUNG VOLUME PRISMA TRAPESIUM ===");
+
+        System.out.print("Masukkan sisi atas: ");
+        double sisiAtas = input.nextDouble();
+
+        System.out.print("Masukkan sisi bawah: ");
+        double sisiBawah = input.nextDouble();
+
+        System.out.print("Masukkan tinggi trapesium: ");
+        double tinggiTrapesium = input.nextDouble();
+
+        System.out.print("Masukkan tinggi prisma: ");
+        double tinggiPrisma = input.nextDouble();
+
+        PrismaTrapesium pt = new PrismaTrapesium(
+                sisiAtas, sisiBawah, tinggiTrapesium, tinggiPrisma);
+
+        System.out.println("Volume Prisma Trapesium = " + pt.hitungVolume());
+
+        input.close();
+    }
+}
