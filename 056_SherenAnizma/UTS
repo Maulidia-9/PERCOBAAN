@@ -1,0 +1,185 @@
+package pkg1;
+
+import java.util.*;
+
+// CLASS USER (Enkapsulasi)
+class User {
+    private String nama;
+    private String nis;
+
+    public User(String nama, String nis) {
+        this.nama = nama;
+        this.nis = nis;
+    }
+
+    // Method Getter
+    public String getNama() {
+        return nama;
+    }
+
+    public String getNis() {
+        return nis;
+    }
+}
+
+// PARENT CLASS
+class Pembayaran {
+    protected int admin = 5000;
+
+    // Method untuk polymorphism
+    public void tampil(User u) {
+        System.out.println("Menampilkan pembayaran...");
+    }
+}
+
+// CHILD SPP
+class SPPBulanan extends Pembayaran {
+    private String bulan;
+    private int biayaPokok;
+    private int denda;
+
+    public SPPBulanan(String bulan, int biayaPokok) {
+        this.bulan = bulan;
+        this.biayaPokok = biayaPokok;
+    }
+
+    public int hitungTotal(int tanggal) {
+        denda = (tanggal > 10) ? 15000 : 0;
+        return biayaPokok + admin + denda;
+    }
+
+    @Override
+    public void tampil(User u) {
+        int total = biayaPokok + admin + denda;
+
+        System.out.println("\n===== STRUK SPP =====");
+        System.out.println("Nama        : " + u.getNama());
+        System.out.println("NIS         : " + u.getNis());
+        System.out.println("Bulan       : " + bulan);
+        System.out.println("Biaya Pokok : Rp" + biayaPokok);
+        System.out.println("Denda       : Rp" + denda);
+        System.out.println("Total       : Rp" + total);
+        System.out.println("=====================");
+    }
+}
+
+// CHILD SERAGAM
+class SeragamSekolah extends Pembayaran {
+    private String ukuran;
+    private int harga;
+    private int tambahan;
+
+    public SeragamSekolah(String ukuran, int harga) {
+        this.ukuran = ukuran;
+        this.harga = harga;
+    }
+
+    public int hitungTotal() {
+        tambahan = ukuran.equalsIgnoreCase("XL") ? 20000 : 0;
+        return harga + admin + tambahan;
+    }
+
+    @Override
+    public void tampil(User u) {
+        int total = harga + admin + tambahan;
+
+        System.out.println("\n===== STRUK SERAGAM =====");
+        System.out.println("Nama            : " + u.getNama());
+        System.out.println("Ukuran          : " + ukuran);
+        System.out.println("Harga Dasar     : Rp" + harga);
+        System.out.println("Tambahan Ukuran : Rp" + tambahan);
+        System.out.println("Total           : Rp" + total);
+        System.out.println("=========================");
+    }
+}
+
+// MAIN CLASS
+public class UTS_PBO_Shereen {
+
+    static Scanner input = new Scanner(System.in);
+    static ArrayList<String> historiSPP = new ArrayList<>();
+
+    public static void main(String[] args) {
+
+        System.out.println("===== LOGIN =====");
+        System.out.print("Masukkan NIS     : ");
+        String nis = input.nextLine();
+
+        System.out.print("Masukkan Password: ");
+        String pass = input.nextLine();
+
+        if (!pass.equals("123")) {
+            System.out.println("Login gagal!");
+            return;
+        }
+
+        System.out.print("Masukkan Nama: ");
+        String nama = input.nextLine();
+
+        User user = new User(nama, nis);
+
+        int pilih;
+
+        do {
+            System.out.println("\n===== MENU UTAMA =====");
+            System.out.println("1. Bayar SPP");
+            System.out.println("2. Beli Seragam");
+            System.out.println("3. Keluar");
+            System.out.print("Pilih: ");
+
+            pilih = input.nextInt();
+            input.nextLine();
+
+            switch (pilih) {
+                case 1:
+                    bayarSPP(user);
+                    break;
+                case 2:
+                    beliSeragam(user);
+                    break;
+                case 3:
+                    System.out.println("Terima kasih!");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid!");
+            }
+
+        } while (pilih != 3);
+    }
+
+    static void bayarSPP(User user) {
+        System.out.print("Masukkan Bulan: ");
+        String bulan = input.nextLine();
+
+        if (historiSPP.contains(bulan)) {
+            System.out.println("SPP bulan ini sudah dibayar!");
+            return;
+        }
+
+        System.out.print("Biaya Pokok: ");
+        int biaya = input.nextInt();
+
+        System.out.print("Tanggal Bayar: ");
+        int tanggal = input.nextInt();
+        input.nextLine();
+
+        SPPBulanan spp = new SPPBulanan(bulan, biaya);
+        spp.hitungTotal(tanggal);
+        spp.tampil(user);
+
+        historiSPP.add(bulan);
+    }
+
+    static void beliSeragam(User user) {
+        System.out.print("Ukuran (S/M/L/XL): ");
+        String ukuran = input.nextLine();
+
+        System.out.print("Harga Seragam: ");
+        int harga = input.nextInt();
+        input.nextLine();
+
+        SeragamSekolah s = new SeragamSekolah(ukuran, harga);
+        s.hitungTotal();
+        s.tampil(user);
+    }
+}
