@@ -1,0 +1,24 @@
+import java.util.Scanner;
+// Class utama
+class PrismaTrapesium {
+private double sisiAtas;
+private double sisiBawah;
+private double tinggiTrapesium;
+private double tinggiPrisma;
+// Constructor default
+public PrismaTrapesium() {
+}
+// Constructor dengan parameter
+public PrismaTrapesium(double sisiAtas, double sisiBawah, double
+import java.util.Scanner;
+// Class utama
+class PrismaTrapesium {
+private double sisiAtas;
+private double sisiBawah;
+private double tinggiTrapesium;
+private double tinggiPrisma;
+// Constructor default
+public PrismaTrapesium() {
+}
+// Constructor dengan parameter
+public PrismaTrapesium(double sisiAtas, double sisiBawah, double
