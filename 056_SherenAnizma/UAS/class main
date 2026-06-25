@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("====================================");
+        System.out.println(" SISTEM MANAJEMEN ADOPSI HEWAN");
+        System.out.println("====================================");
+
+        System.out.println("\nPilih Jenis Hewan");
+        System.out.println("1. Kucing");
+        System.out.println("2. Anjing");
+        System.out.println("3. Burung");
+        System.out.print("Pilihan : ");
+
+        int pilihan = input.nextInt();
+        input.nextLine();
+
+        System.out.print("Masukkan Nama Hewan : ");
+        String nama = input.nextLine();
+
+        System.out.print("Masukkan Umur Hewan : ");
+        int umur = input.nextInt();
+
+        Hewan hewan = null;
+
+        switch (pilihan) {
+            case 1:
+                hewan = new Kucing(nama, umur);
+                break;
+
+            case 2:
+                hewan = new Anjing(nama, umur);
+                break;
+
+            case 3:
+                hewan = new Burung(nama, umur);
+                break;
+
+            default:
+                System.out.println("Pilihan tidak valid!");
+                return;
+        }
+
+        hewan.tampilkanInfo();
+
+        if (hewan instanceof Perawatan) {
+            ((Perawatan) hewan).jadwalPerawatan();
+        }
+
+        System.out.println("\n====================================");
+        System.out.println("Data berhasil ditampilkan");
+        System.out.println("====================================");
+    }
+}
