@@ -1,0 +1,73 @@
+class Pegawai {
+
+    String nama;
+    String divisi;
+    int gajiPokok;
+
+    // Constructor 1
+    public Pegawai(String nama, String divisi, int gajiPokok) {
+        this.nama = nama;
+        this.divisi = divisi;
+        this.gajiPokok = gajiPokok;
+    }
+
+    // Constructor Overloading
+    public Pegawai(String nama, String divisi) {
+        this.nama = nama;
+        this.divisi = divisi;
+        this.gajiPokok = 4000000;
+    }
+
+    double hitungGaji() {
+        return gajiPokok + (0.15 * gajiPokok);
+    }
+
+    void tampilkanInfo() {
+        System.out.println("\n===== DATA PEGAWAI =====");
+        System.out.println("Nama        : " + nama);
+        System.out.println("Divisi      : " + divisi);
+        System.out.println("Gaji Pokok  : " + gajiPokok);
+        System.out.println("Bonus       : 15%");
+        System.out.println("Total Gaji  : " + hitungGaji());
+    }
+}
+
+// Inheritance
+class PegawaiTetap extends Pegawai {
+
+    public PegawaiTetap(String nama, String divisi, int gajiPokok) {
+        super(nama, divisi, gajiPokok);
+    }
+
+    double hitungPotongan() {
+        return hitungGaji() * 0.03;
+    }
+
+    // Override
+    @Override
+    void tampilkanInfo() {
+        super.tampilkanInfo();
+        System.out.println("Potongan    : 3%");
+        System.out.println("Jumlah Potongan : " + hitungPotongan());
+        System.out.println("Gaji Bersih : " + (hitungGaji() - hitungPotongan()));
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Pegawai pegawai1 =
+                new Pegawai("Shereen", "Keuangan", 3500000);
+
+        Pegawai pegawai2 =
+                new Pegawai("Anizma", "Administrasi");
+
+        pegawai1.tampilkanInfo();
+        pegawai2.tampilkanInfo();
+
+        PegawaiTetap pegawaiTetap =
+                new PegawaiTetap("Shereen Maulana", "Humas", 5000000);
+
+        pegawaiTetap.tampilkanInfo();
+    }
+}
