@@ -1,0 +1,43 @@
+
+import java.util.Scanner;
+import produk.Produk;
+import transaksi.Pesanan;
+
+public class Main {
+    
+
+
+
+    public static void main(String[] args) {
+
+          Scanner input = new Scanner(System.in);
+
+        Produk produk = new Produk(
+                "Keyboard Gaming",
+                250000,
+                "Elektronik"
+        );
+
+        Pesanan pesanan = new Pesanan();
+
+        System.out.println("===== PEMESANAN PRODUK =====");
+        System.out.println("Produk : " + produk.getNamaProduk());
+        System.out.println("Harga : Rp" + produk.getHarga());
+        System.out.println("Kategori : " + produk.kategori);
+
+        System.out.print("Masukkan jumlah beli : ");
+        int jumlah = input.nextInt();
+
+        pesanan.pesanProduk(jumlah, produk.getHarga());
+
+        System.out.print("Batalkan order? (y/t) : ");
+        char pilih = input.next().charAt(0);
+
+        if (pilih == 'y') {
+            System.out.println("Pesanan berhasil dibatalkan!");
+        } else {
+            System.out.println("Pesanan berhasil diproses!");
+        }
+    }
+}
+}
