@@ -1,0 +1,24 @@
+public class Anjing extends Hewan implements Perawatan {
+
+    public Anjing(String nama, int umur) {
+        super(nama, umur,300000);
+    }
+
+    @Override
+    public void tampilkanInfo() {
+        System.out.println("\n===== DATA HEWAN =====");
+        System.out.println("Jenis Hewan : Anjing");
+        System.out.println("Nama Hewan  : " + getNama());
+        System.out.println("Umur Hewan  : " + umur + " Tahun");
+        System.out.println("Biaya Adopsi: Rp" + (int) biayaAdopsi);
+        System.out.println("Fasilitas:");
+        System.out.println("- Vaksin Dasar");
+        System.out.println("- Pemeriksaan Kesehatan");
+        System.out.println("- Kalung Hewan");
+    }
+
+    @Override
+    public void jadwalPerawatan() {
+        System.out.println("Perawatan   : Vaksin dan Pemeriksaan Rutin");
+    }
+}
