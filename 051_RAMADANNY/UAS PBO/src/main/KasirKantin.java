@@ -1,0 +1,87 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package main;
+
+/**
+ *
+ * @author ASUS
+ */
+import java.util.Scanner;
+import menu.*;
+import transaksi.*;
+
+public class KasirKantin {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        Makanan m1 = new Makanan("Nasi Goreng", 15000);
+        Makanan m2 = new Makanan("Mie Ayam", 12000);
+        Minuman d1 = new Minuman("Es Teh", 5000);
+        Minuman d2 = new Minuman("Jus Alpukat", 10000);
+
+        System.out.println("===== KASIR KANTIN =====");
+        System.out.println("1. " + m1.getNama() + " - Rp" + m1.getHarga());
+        System.out.println("2. " + m2.getNama() + " - Rp" + m2.getHarga());
+        System.out.println("3. " + d1.getNama() + " - Rp" + d1.getHarga());
+        System.out.println("4. " + d2.getNama() + " - Rp" + d2.getHarga());
+
+        System.out.print("Pilih menu (1-4): ");
+        int pilih = input.nextInt();
+
+        System.out.print("Jumlah pesanan: ");
+        int jumlah = input.nextInt();
+
+        int harga = 0;
+        String namaMenu = "";
+
+        switch (pilih) {
+            case 1:
+                harga = m1.getHarga();
+                namaMenu = m1.getNama();
+                break;
+            case 2:
+                harga = m2.getHarga();
+                namaMenu = m2.getNama();
+                break;
+            case 3:
+                harga = d1.getHarga();
+                namaMenu = d1.getNama();
+                break;
+            case 4:
+                harga = d2.getHarga();
+                namaMenu = d2.getNama();
+                break;
+            default:
+                System.out.println("Menu tidak tersedia!");
+                return;
+        }
+
+        int total = harga * jumlah;
+
+        if (total > 50000) {
+            System.out.println("Selamat! Anda mendapat diskon 10%");
+            total = total - (total * 10 / 100);
+        }
+
+        Transaksi transaksi = new Transaksi();
+        transaksi.setTotal(total);
+
+        System.out.println("Total Bayar: Rp" + transaksi.getTotal());
+
+        System.out.print("Masukkan uang bayar: Rp");
+        int bayar = input.nextInt();
+
+        transaksi.setBayar(bayar);
+
+        System.out.println("\n===== STRUK PEMBAYARAN =====");
+        System.out.println("Menu       : " + namaMenu);
+        System.out.println("Jumlah     : " + jumlah);
+        System.out.println("Total      : Rp" + transaksi.getTotal());
+        System.out.println("Bayar      : Rp" + bayar);
+        System.out.println("Kembalian  : Rp" + transaksi.hitungKembalian());
+        System.out.println("============================");
+    }
+}
