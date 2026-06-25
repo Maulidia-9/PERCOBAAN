@@ -1,0 +1,137 @@
+import java.util.Scanner;
+
+// Interface
+interface Gaji {
+double hitungGaji();
+}
+
+// Abstract Class
+abstract class Karyawan implements Gaji {
+
+```
+// final keyword
+final int GAJI_HARIAN = 120000;
+final int GAJI_LEMBUR = 45000;
+
+String nama;
+String jabatan;
+int kehadiran;
+int jamLembur;
+double bonus;
+double totalGaji;
+
+// Constructor
+Karyawan(String nama, String jabatan, int kehadiran, int jamLembur) {
+    this.nama = nama;
+    this.jabatan = jabatan;
+    this.kehadiran = kehadiran;
+    this.jamLembur = jamLembur;
+}
+
+// Abstract Method
+public abstract void hitungBonus();
+
+// Method tampil data
+void tampilData() {
+    System.out.println("\n===== DATA KARYAWAN =====");
+    System.out.println("Nama              : " + nama);
+    System.out.println("Jabatan           : " + jabatan);
+    System.out.println("Jumlah Kehadiran  : " + kehadiran);
+    System.out.println("Jam Lembur        : " + jamLembur);
+    System.out.println("Bonus             : " + bonus);
+    System.out.println("Total Gaji        : " + totalGaji);
+    System.out.println("Jadwal Gaji       : " + jadwalGaji());
+}
+
+// Method jadwal gaji
+String jadwalGaji() {
+    if (totalGaji < 1000000) {
+        return "Senin";
+    } else if (totalGaji >= 1500000 && totalGaji <= 2500000) {
+        return "Selasa";
+    } else if (totalGaji >= 2500001 && totalGaji <= 3500000) {
+        return "Rabu";
+    } else if (totalGaji >= 3500001 && totalGaji <= 4500000) {
+        return "Kamis";
+    } else if (totalGaji >= 4500001 && totalGaji <= 5500000) {
+        return "Jumat";
+    } else {
+        return "Sabtu";
+    }
+}
+```
+
+}
+
+// Subclass
+class DataKaryawan extends Karyawan {
+
+```
+// Constructor
+DataKaryawan(String nama, String jabatan, int kehadiran, int jamLembur) {
+    super(nama, jabatan, kehadiran, jamLembur);
+}
+
+// Override abstract method
+@Override
+public void hitungBonus() {
+    if (kehadiran >= 26) {
+        bonus = 750000;
+    } else if (kehadiran >= 20) {
+        bonus = 450000;
+    } else {
+        bonus = 0;
+    }
+}
+
+// Implementasi interface
+@Override
+public double hitungGaji() {
+    totalGaji = (kehadiran * GAJI_HARIAN)
+            + (jamLembur * GAJI_LEMBUR)
+            + bonus;
+
+    return totalGaji;
+}
+```
+
+}
+
+public class ACCT {
+
+```
+public static void main(String[] args) {
+
+    Scanner input = new Scanner(System.in);
+
+    // Input data
+    System.out.println("===== INPUT DATA KARYAWAN =====");
+
+    System.out.print("Nama Karyawan : ");
+    String nama = input.nextLine();
+
+    System.out.print("Jabatan : ");
+    String jabatan = input.nextLine();
+
+    System.out.print("Jumlah Kehadiran : ");
+    int hadir = input.nextInt();
+
+    System.out.print("Jam Lembur : ");
+    int lembur = input.nextInt();
+
+    // Membuat object
+    DataKaryawan karyawan1 =
+            new DataKaryawan(nama, jabatan, hadir, lembur);
+
+    // Memanggil method
+    karyawan1.hitungBonus();
+    karyawan1.hitungGaji();
+
+    // Menampilkan hasil
+    karyawan1.tampilData();
+
+    input.close();
+}
+```
+
+}
