@@ -1,0 +1,61 @@
+package mainapp; 
+ 
+import java.util.Scanner; 
+ 
+import produk.Produk; 
+import produk.Kategori; 
+ 
+import transaksi.Pesanan; 
+import transaksi.Pembayaran; 
+ 
+public class Main {
+public static void main(String[] args) { 
+ 
+        Scanner input = new Scanner(System.in); 
+ 
+        System.out.println("=== PEMESANAN PRODUK ==="); 
+ 
+        System.out.print("Nama Produk : "); 
+        String nama = input.nextLine(); 
+ 
+        System.out.print("Harga Produk : "); 
+        int harga = input.nextInt(); 
+ 
+        System.out.print("Stok Produk : "); 
+        int stok = input.nextInt(); 
+        input.nextLine(); 
+ 
+        System.out.print("Nama Kategori : "); 
+        String kategori = input.nextLine(); 
+ 
+        Produk p = new Produk(nama, harga, stok); 
+ 
+        Kategori k = new Kategori( 
+                kategori, 
+                "Kategori Produk", 
+                101); 
+ 
+        System.out.print("Jumlah Pesan : "); 
+        int jumlah = input.nextInt();
+Pesanan ps = new Pesanan( 
+                "PS001", 
+                jumlah, 
+                p); 
+ 
+        System.out.print("Jumlah Bayar : "); 
+        int bayar = input.nextInt(); 
+ 
+        Pembayaran pb = new Pembayaran( 
+                "Tunai", 
+                bayar); 
+ 
+        System.out.println(); 
+        p.tampilProduk(); 
+        k.tampilKategori(); 
+        ps.tampilPesanan(); 
+        pb.hitungKembalian(ps.getTotalHarga()); 
+ 
+        Laporan lp = new Laporan(); 
+        lp.cetakLaporan(); 
+    } 
+}
