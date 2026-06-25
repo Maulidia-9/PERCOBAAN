@@ -1,0 +1,54 @@
+class Pegawai {
+protected String nama;
+protected int gajiPokok = 1000000;
+public Pegawai(String nama) {
+this.nama = nama;
+}
+public int hitungGaji() {
+return gajiPokok;
+}
+public void tampilGaji() {
+System.out.println("Nama: " + nama);
+System.out.println("Total Gaji: Rp " + hitungGaji());
+}
+}
+// Kasir
+class Kasir extends Pegawai {
+private int hadir;
+public Kasir(String nama, int hadir) {
+super(nama);
+this.hadir = hadir;
+}
+@Override
+public int hitungGaji() {
+int tambahan = hadir * 5000;
+return gajiPokok + tambahan;
+}
+}
+// Pramuniaga
+class Pramuniaga extends Pegawai {
+private int hadir;
+private int lembur;
+public Pramuniaga(String nama, int hadir, int lembur) {
+super(nama);
+this.hadir = hadir;
+this.lembur = lembur;
+}
+@Override
+public int hitungGaji() {
+int tambahanHadir = hadir * 5000;
+int tambahanLembur = lembur * 20000;
+return gajiPokok + tambahanHadir + tambahanLembur;
+}
+}
+// Main class
+public class Main {
+public static void main(String[] args) {
+Kasir kasir1 = new Kasir("Ani", 20);
+Pramuniaga pramuniaga1 = new Pramuniaga("Budi", 22, 5);
+System.out.println("=== Data Gaji Pegawai ===");
+kasir1.tampilGaji();
+System.out.println();
+pramuniaga1.tampilGaji();
+}
+}
