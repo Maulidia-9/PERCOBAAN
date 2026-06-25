@@ -1,0 +1,162 @@
+//CLASINDUK
+//abstracsion; tidak bisa membuat object secara langsung dikode hewan nya jadi bwrfungsi dengan clas induk
+//modivaier kita menggunakan
+public abstract class Hewan { //bisa di akses
+    private String nama; // hanya kelas itu saja yg bisa akses
+    protected int umur; //bisa di akses oleh pacage yg sama dan turunan nya
+    protected double biayaAdopsi;
+
+//CONSTRUCTOR
+    public Hewan(String nama, int umur, double biayaAdopsi) {
+        this.nama = nama;
+        this.umur = umur;
+        this.biayaAdopsi = biayaAdopsi;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+    
+    public abstract void tampilkanInfo();
+}
+//WARISAN DR HEWAN
+//implements perawatan 
+public class Kucing extends Hewan implements Perawatan {
+
+//CONSTRUCTOR
+    public Kucing(String nama, int umur) {
+        super(nama, umur,15000);
+    }
+
+    @Override 
+    public void tampilkanInfo() {
+        System.out.println("\n===== DATA HEWAN =====");
+        System.out.println("Jenis Hewan : Kucing");
+        System.out.println("Nama Hewan  : " + getNama());
+        System.out.println("Umur Hewan  : " + umur + " Tahun");
+        System.out.println("Biaya Adopsi: Rp" + (int) biayaAdopsi);
+        System.out.println("Fasilitas:");
+        System.out.println("- Vaksin Dasar");
+        System.out.println("- Grooming");
+        System.out.println("- Buku Kesehatan");
+    }
+
+    @Override
+    public void jadwalPerawatan() {
+        System.out.println("Perawatan   : Vaksin dan Grooming");
+    }
+}
+//WARISAN DR HEWAN
+public class Anjing extends Hewan implements Perawatan {
+
+//CONSTRUCTOR
+    public Anjing(String nama, int umur) {
+        super(nama, umur, 300000);
+    }
+
+    @Override
+    public void tampilkanInfo() {
+        System.out.println("\n===== DATA HEWAN =====");
+        System.out.println("Jenis Hewan : Anjing");
+        System.out.println("Nama Hewan  : " + getNama());
+        System.out.println("Umur Hewan  : " + umur + " Tahun");
+        System.out.println("Biaya Adopsi: Rp" + (int) biayaAdopsi);
+        System.out.println("Fasilitas:");
+        System.out.println("- Vaksin Dasar");
+        System.out.println("- Pemeriksaan Kesehatan");
+        System.out.println("- Kalung Hewan");
+    }
+
+    @Override
+    public void jadwalPerawatan() {
+        System.out.println("Perawatan   : Vaksin dan Pemeriksaan Rutin");
+    }
+}
+//WARISAN DR HEWAN
+public class Burung extends Hewan implements Perawatan {
+
+//CONSTRUCTOR
+    public Burung(String nama, int umur) {
+        super(nama, umur, 100000);
+    }
+
+    @Override
+    public void tampilkanInfo() {
+        System.out.println("\n===== DATA HEWAN =====");
+        System.out.println("Jenis Hewan : Burung");
+        System.out.println("Nama Hewan  : " + getNama());
+        System.out.println("Umur Hewan  : " + umur + " Tahun");
+        System.out.println("Biaya Adopsi: Rp" + (int) biayaAdopsi);
+        System.out.println("Fasilitas:");
+        System.out.println("- Vitamin");
+        System.out.println("- Pembersihan Kandang");
+    }
+
+    @Override
+    public void jadwalPerawatan() {
+        System.out.println("Perawatan   : Pembersihan Kandang");
+    }
+}
+//interface. berfungsi untuk yg harus di penuhi oleh setiap hewan
+public interface Perawatan {
+    void jadwalPerawatan();
+}
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("====================================");
+        System.out.println(" SISTEM MANAJEMEN ADOPSI HEWAN");
+        System.out.println("====================================");
+
+        System.out.println("\nPilih Jenis Hewan");
+        System.out.println("1. Kucing");
+        System.out.println("2. Anjing");
+        System.out.println("3. Burung");
+        System.out.print("Pilihan : ");
+
+        int pilihan = input.nextInt();
+        input.nextLine();
+
+        System.out.print("Masukkan Nama Hewan : ");
+        String nama = input.nextLine();
+
+        System.out.print("Masukkan Umur Hewan : ");
+        int umur = input.nextInt();
+
+//OBJECT
+        Hewan hewan = null;
+
+        switch (pilihan) {
+            case 1:
+                hewan = new Kucing(nama, umur);
+                break;
+
+            case 2:
+                hewan = new Anjing(nama, umur);
+                break;
+
+            case 3:
+                hewan = new Burung(nama, umur);
+                break;
+
+            default:
+                System.out.println("Pilihan tidak valid!");
+                return;
+        }
+
+        hewan.tampilkanInfo();
+
+        if (hewan instanceof Perawatan) {
+            ((Perawatan) hewan).jadwalPerawatan();
+        }
+
+        System.out.println("\n====================================");
+        System.out.println("Data berhasil ditampilkan");
+        System.out.println("====================================");
+    }
+}
