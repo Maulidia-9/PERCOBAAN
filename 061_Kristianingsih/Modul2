@@ -1,0 +1,108 @@
+import java.util.Scanner;
+class ItemPerpustakaan {
+    protected String judul;
+    protected int tahunTerbit;
+    
+    
+    public ItemPerpustakaan(String judul, int tahunTerbit) {
+        this.judul = judul;
+        this.tahunTerbit = tahunTerbit;
+    }
+}
+
+class Buku extends ItemPerpustakaan {
+    private String pengarang, penerbit, kategoriBuku;
+    private int stok;
+    
+    public Buku(String judul, int tahunTerbit, String pengarang, 
+           String penerbit, String kategoriBuku, int stok) {
+        super(judul, tahunTerbit);
+        this.pengarang = pengarang;
+        this.penerbit = penerbit;
+        this.kategoriBuku = kategoriBuku;
+        this.stok = stok;
+    }
+
+    public void tampil() {
+        System.out.println("\n=== DATA BUKU ===");
+        System.out.println("Judul       : " + judul);
+        System.out.println("Tahun       : " + tahunTerbit);
+        System.out.println("Pengarang   : " + pengarang);
+        System.out.println("Penerbit    : " + penerbit);
+        System.out.println("Kategori    : " + kategoriBuku);
+        System.out.println("Stok        : " + stok);
+    }
+}
+
+class Novel extends ItemPerpustakaan {
+    protected String penulis, kategoriNovel, status;
+    
+    public Novel(String judul, int tahunTerbit, String penulis, 
+           String kategoriNovel, String status) {
+        super(judul, tahunTerbit);
+        this.penulis = penulis;
+        this.kategoriNovel = kategoriNovel;
+        this.status = status;
+    }
+
+    public void tampil() {
+        System.out.println("\n=== DATA NOVEL ===");
+        System.out.println("Judul       : " + judul);
+        System.out.println("Tahun       : " + tahunTerbit);
+        System.out.println("Penulis     : " + penulis);
+        System.out.println("Kategori    : " + kategoriNovel);
+        System.out.println("Status      : " + status);
+    }
+}
+
+ class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("=== INPUT DATA BUKU ===");
+        System.out.print("Judul: ");
+        String jBuku = input.nextLine();
+
+        System.out.print("Tahun Terbit: ");
+        int tBuku = input.nextInt(); input.nextLine();
+
+        System.out.print("Pengarang: ");
+        String pengarang = input.nextLine();
+
+        System.out.print("Penerbit: ");
+        String penerbit = input.nextLine();
+
+        System.out.print("Kategori: ");
+        String kategoriBuku = input.nextLine();
+
+        System.out.print("Stok: ");
+        int stok = input.nextInt(); input.nextLine();
+
+        Buku buku = new Buku(jBuku, tBuku, pengarang, penerbit, 
+                    kategoriBuku, stok);
+
+        System.out.println("\n=== INPUT DATA NOVEL ===");
+        System.out.print("Judul: ");
+        String jNovel = input.nextLine();
+
+        System.out.print("Tahun Terbit: ");
+        int tNovel = input.nextInt(); input.nextLine();
+
+        System.out.print("Penulis: ");
+        String penulis = input.nextLine();
+
+        System.out.print("Kategori: ");
+        String kategoriNovel = input.nextLine();
+
+        System.out.print("Status: ");
+        String status = input.nextLine();
+
+        Novel novel = new Novel(jNovel, tNovel, penulis, 
+                      kategoriNovel, status);
+        
+        buku.tampil();
+        novel.tampil();
+
+        input.close();
+    }
+ }
