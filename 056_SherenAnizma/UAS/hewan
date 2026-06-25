@@ -1,0 +1,17 @@
+public abstract class Hewan {
+    private String nama;
+    protected int umur;
+    protected double biayaAdopsi;
+
+    public Hewan(String nama, int umur, double biayaAdopsi) {
+        this.nama = nama;
+        this.umur = umur;
+        this.biayaAdopsi = biayaAdopsi;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public abstract void tampilkanInfo();
+}
