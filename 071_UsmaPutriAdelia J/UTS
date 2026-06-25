@@ -1,150 +1,26 @@
-package utama;
+import java.util.*;
 
-// Import Scanner untuk input keyboard
-import java.util.Scanner;
+class Siswa {
+String nama, nis;
 
-// Interface untuk menghitung gaji
-interface HitungGaji {
-    double hitungGaji();
+Siswa(String nama, String nis) { // constructor
+this.nama = nama;
+this.nis = nis;
+}
 }
 
-// Abstract class karyawan
-abstract class Karyawan {
-    protected String nama;
-    protected String jabatan;
-    protected int jumlahKehadiran;
-    protected int jamLembur;
-
-    // Constructor
-    public Karyawan(String nama, String jabatan, int jumlahKehadiran, int jamLembur) {
-        this.nama = nama;
-        this.jabatan = jabatan;
-        this.jumlahKehadiran = jumlahKehadiran;
-        this.jamLembur = jamLembur;
-    }
-
-    // Abstract method
-    abstract double hitungBonus();
-
-    // Method untuk menampilkan data
-    public void tampilData() {
-        System.out.println("Nama              : " + nama);
-        System.out.println("Jabatan           : " + jabatan);
-        System.out.println("Jumlah Kehadiran  : " + jumlahKehadiran);
-        System.out.println("Jam Lembur        : " + jamLembur);
-    }
+// SUPER CLASSadmin
+abstract class Transaksi {
+int admin = 5000;
+abstract int hitungTotal(); // polymorphism (method abstract)
+abstract void tampil(Siswa s);
 }
 
-// Class turunan dari abstract class
-class DataKaryawan extends Karyawan implements HitungGaji {
+// SUBCLASS SPP
+class SPP extends Transaksi {
+String bulan;
+int pokok, tgl, denda;
 
-    // Final keyword
-    final int GAJI_PER_HARI = 120000;
-    final int GAJI_LEMBUR = 45000;
-
-    // Constructor
-    public DataKaryawan(String nama, String jabatan, int jumlahKehadiran, int jamLembur) {
-        super(nama, jabatan, jumlahKehadiran, jamLembur);
-    }
-
-    // Implementasi abstract method bonus
-    @Override
-    double hitungBonus() {
-
-        // Jika kehadiran minimal 26 hari
-        if (jumlahKehadiran >= 26) {
-            return 750000;
-        }
-
-        // Jika kehadiran minimal 20 hari
-        else if (jumlahKehadiran >= 20) {
-            return 450000;
-        }
-
-        // Jika tidak memenuhi
-        else {
-            return 0;
-        }
-    }
-
-    // Implementasi interface hitung gaji
-    @Override
-    public double hitungGaji() {
-
-        // Rumus gaji
-        return (jumlahKehadiran * GAJI_PER_HARI)
-                + (jamLembur * GAJI_LEMBUR)
-                + hitungBonus();
-    }
-
-    // Method menentukan jadwal gaji
-    public String jadwalGaji(double gaji) {
-
-        if (gaji < 1000000) {
-            return "Senin";
-        }
-
-        else if (gaji >= 1500000 && gaji <= 2500000) {
-            return "Selasa";
-        }
-
-        else if (gaji >= 2500001 && gaji <= 3500000) {
-            return "Rabu";
-        }
-
-        else if (gaji >= 3500001 && gaji <= 4500000) {
-            return "Kamis";
-        }
-
-        else if (gaji >= 4500001 && gaji <= 5500000) {
-            return "Jumat";
-        }
-
-        else {
-            return "Sabtu";
-        }
-    }
-}
-
-// Main class
-public class Utama {
-
-    public static void main(String[] args) {
-
-        // Membuat objek Scanner
-        Scanner input = new Scanner(System.in);
-
-        // Input data karyawan
-        System.out.println("===== PENDATAAN KARYAWAN =====");
-
-        System.out.print("Masukkan Nama Karyawan : ");
-        String nama = input.nextLine();
-
-        System.out.print("Masukkan Jabatan       : ");
-        String jabatan = input.nextLine();
-
-        System.out.print("Masukkan Jumlah Kehadiran : ");
-        int hadir = input.nextInt();
-
-        System.out.print("Masukkan Jumlah Jam Lembur : ");
-        int lembur = input.nextInt();
-
-        // Membuat objek DataKaryawan
-        DataKaryawan karyawan = new DataKaryawan(nama, jabatan, hadir, lembur);
-
-        // Menghitung gaji
-        double totalGaji = karyawan.hitungGaji();
-
-        // Menampilkan hasil
-        System.out.println("\n===== DATA KARYAWAN =====");
-
-        karyawan.tampilData();
-
-        System.out.println("Bonus             : Rp " + karyawan.hitungBonus());
-        System.out.println("Total Gaji                : Rp " + totalGaji);
-        System.out.println("Jadwal Pembagian  : " + karyawan.jadwalGaji(totalGaji));
-
-        // Menutup Scanner
-        input.close();
-    }
-}
+SPP(String bulan, int pokok, int tgl) { // constructor
+this.bulan = bulan;
+this.pokok = pokok;
