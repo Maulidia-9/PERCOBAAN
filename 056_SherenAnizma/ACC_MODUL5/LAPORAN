@@ -1,0 +1,15 @@
+package mainapp; 
+ 
+public class Laporan { 
+ 
+    public String judul = "Laporan Pemesanan"; 
+    protected String tanggal = "Hari Ini"; 
+    private String status = "Selesai"; 
+ 
+    public void cetakLaporan() { 
+ 
+        System.out.println(); 
+        System.out.println("=== LAPORAN TRANSAKSI ==="); 
+        System.out.println("Status : " + status); 
+    } 
+}
