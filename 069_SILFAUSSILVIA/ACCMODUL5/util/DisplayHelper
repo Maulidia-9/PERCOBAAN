@@ -1,0 +1,28 @@
+package util;
+
+/**
+ *
+ * @author Silvi
+ */
+public class DisplayHelper {
+
+    private String header;
+    protected String footer;
+    public boolean showBorder;
+
+    public DisplayHelper(String header, String footer, boolean showBorder) {
+        this.header = header;
+        this.footer = footer;
+        this.showBorder = showBorder;
+    }
+
+    public void tampilkan(String pesan) {
+        if (showBorder) {
+            System.out.println("=== " + header + " ===");
+        }
+        System.out.println(pesan);
+        if (showBorder) {
+            System.out.println("=== " + footer + " ===");
+        }
+    }
+} 

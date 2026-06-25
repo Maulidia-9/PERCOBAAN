@@ -1,0 +1,37 @@
+package util;
+
+/**
+ *
+ * @author Silvi
+ */
+import java.util.Scanner;
+
+public class InputHelper {
+   private Scanner scanner;
+    protected String lastInput;
+    public boolean isActive;
+
+    public InputHelper() {
+        scanner = new Scanner(System.in);
+        isActive = true;
+    }
+
+    public String getString(String prompt) {
+        System.out.print(prompt);
+        lastInput = scanner.nextLine();
+        return lastInput;
+    }
+
+    public int getInt(String prompt) {
+        System.out.print(prompt);
+        lastInput = scanner.nextLine();
+        return Integer.parseInt(lastInput);
+    }
+
+    public double getDouble(String prompt) {
+        System.out.print(prompt);
+        lastInput = scanner.nextLine();
+        return Double.parseDouble(lastInput);
+    }
+} 
+
