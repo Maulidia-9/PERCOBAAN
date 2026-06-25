@@ -1,0 +1,28 @@
+package transaksi; 
+ 
+import produk.Produk;
+public class Pesanan { 
+ 
+    public int jumlah; 
+    protected int totalHarga; 
+    private String kodePesanan; 
+ 
+    public Pesanan(String kodePesanan, 
+                   int jumlah, 
+                   Produk produk) { 
+ 
+        this.kodePesanan = kodePesanan; 
+        this.jumlah = jumlah; 
+        this.totalHarga = jumlah * produk.getHarga(); 
+    } 
+ 
+    public int getTotalHarga() { 
+        return totalHarga; 
+    } 
+ 
+    public void tampilPesanan() { 
+        System.out.println("Kode Pesanan : " + kodePesanan); 
+        System.out.println("Jumlah Beli  : " + jumlah); 
+        System.out.println("Total Harga  : " + totalHarga); 
+    } 
+} 
