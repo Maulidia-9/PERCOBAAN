@@ -1,0 +1,61 @@
+package karyawan;
+
+class karyawan { 
+    String nama;
+    String jabatan;
+    int gajipokok;
+    
+    karyawan(String nama, String jabatan, int gajipokok) {
+        this.nama = nama; 
+        this.jabatan = jabatan;
+        this.gajipokok = gajipokok;
+    }
+      
+ karyawan(String nama, String jabatan) {
+     this.nama = nama;
+     this.jabatan = jabatan;
+     this.gajipokok = 5000000;
+ }
+ 
+double hitunggajitotal(){
+    return gajipokok + (0.1 * gajipokok);
+   
+}
+    void tampilkanInfo(){
+        System.out.println("Nama       :  " + nama);
+        System.out.println("Jabatan    :  " + jabatan);
+        System.out.println("Gajipokok  :  " + gajipokok);
+        System.out.println("Gajitotal  :  " + hitunggajitotal());
+        System.out.println();
+    }
+} 
+   class KaryawanPajak extends karyawan {
+
+    KaryawanPajak(String nama, String jabatan, int gajiPokok) {
+        super(nama, jabatan, gajiPokok);
+    }
+
+    double hitungPajak() {
+        return 0.05 * hitunggajitotal();
+    }
+
+    void tampilkanInfo() {
+        super.tampilkanInfo();
+        System.out.println("Pajak : " + hitungPajak());
+    }
+}
+
+    public class Main{
+        public static void main(String[] args) {
+            karyawan k1 = new karyawan("zakya", "meneger", 1000000);
+            
+            karyawan k2 = new karyawan("vivi", "staff");
+             k1.tampilkanInfo();
+             k2.tampilkanInfo();
+             
+            KaryawanPajak kp = new KaryawanPajak("bila", "Supervisor", 7000000);
+
+        System.out.println("Data Karyawan dengan Pajak:");
+        kp.tampilkanInfo();
+    }
+}
