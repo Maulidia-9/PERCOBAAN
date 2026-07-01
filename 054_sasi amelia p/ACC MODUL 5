@@ -1,0 +1,120 @@
+import java.util.Scanner;
+
+// PACKAGE MODEL
+class Produk {
+    private String namaProduk;
+    private int harga;
+
+    public Produk(String namaProduk, int harga) {
+        this.namaProduk = namaProduk;
+        this.harga = harga;
+    }
+
+    public String getNamaProduk() {
+        return namaProduk;
+    }
+
+    public int getHarga() {
+        return harga;
+    }
+}
+
+class Pelanggan {
+    protected String nama;
+
+    public Pelanggan(String nama) {
+        this.nama = nama;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+}
+
+// PACKAGE SERVICE
+class Pemesanan {
+    private Produk produk;
+    private Pelanggan pelanggan;
+    private int jumlah;
+
+    public Pemesanan(Pelanggan pelanggan, Produk produk, int jumlah) {
+        this.pelanggan = pelanggan;
+        this.produk = produk;
+        this.jumlah = jumlah;
+    }
+
+    public int hitungTotal() {
+        return produk.getHarga() * jumlah;
+    }
+
+    public void tampilPesanan() {
+        System.out.println("Nama Pelanggan : " + pelanggan.getNama());
+        System.out.println("Produk         : " + produk.getNamaProduk());
+        System.out.println("Jumlah         : " + jumlah);
+        System.out.println("Total Harga    : " + hitungTotal());
+    }
+}
+
+class Pembayaran {
+    public void bayar(int total, int uang) {
+        if (uang >= total) {
+            System.out.println("Pembayaran Berhasil");
+            System.out.println("Kembalian : " + (uang - total));
+        } else {
+            System.out.println("Uang tidak cukup");
+        }
+    }
+}
+
+// PACKAGE UTIL
+class Helper {
+    public static void garis() {
+        System.out.println("==============================");
+    }
+}
+
+class Struk {
+    public void cetakStruk() {
+        System.out.println("Struk berhasil dicetak");
+    }
+}
+
+// MAIN CLASS
+public class accan5 {
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        Helper.garis();
+
+        System.out.print("Masukkan Nama Pelanggan : ");
+        String nama = input.nextLine();
+
+        System.out.print("Masukkan Nama Produk : ");
+        String produkNama = input.nextLine();
+
+        System.out.print("Masukkan Harga Produk : ");
+        int harga = input.nextInt();
+
+        System.out.print("Masukkan Jumlah Beli : ");
+        int jumlah = input.nextInt();
+
+        Pelanggan pelanggan = new Pelanggan(nama);
+        Produk produk = new Produk(produkNama, harga);
+
+        Pemesanan pesan = new Pemesanan(pelanggan, produk, jumlah);
+
+        Helper.garis();
+        pesan.tampilPesanan();
+
+        int total = pesan.hitungTotal();
+
+        System.out.print("Masukkan Uang Bayar : ");
+        int uang = input.nextInt();
+
+        Pembayaran bayar = new Pembayaran();
+        bayar.bayar(total, uang);
+
+        Struk struk = new Struk();
+        struk.cetakStruk();
+}
