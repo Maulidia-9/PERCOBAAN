@@ -1,0 +1,245 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+class Siswa {
+    String nama = "";
+    String NIS = "";
+    String password = "";
+
+    public Siswa() {
+        this.nama = "";
+        this.NIS = "";
+        this.password = "";
+    }
+
+    public Siswa(String nama, String NIS, String password) {
+        this.nama = nama;
+        this.NIS = NIS;
+        this.password = password;
+    }
+}
+
+abstract class Pembayaran {
+    Siswa siswa;
+    double total;
+
+    public Pembayaran(Siswa siswa) {
+        this.siswa = siswa;
+    }
+
+    abstract void hitungTotal();
+    abstract void tampilkanRincian();
+}
+
+class PembayaranSPP extends Pembayaran {
+    String bulan;
+    int tahun;
+    int tanggalBayar;
+    double biayaPokok;
+    double biayaAdmin = 5000;
+    double denda = 0;
+
+    public PembayaranSPP(Siswa siswa, String bulan, int tahun, int tanggalBayar, double biayaPokok) {
+        super(siswa);
+        this.bulan = bulan;
+        this.tahun = tahun;
+        this.tanggalBayar = tanggalBayar;
+        this.biayaPokok = biayaPokok;
+        hitungTotal();
+    }
+
+    @Override
+    void hitungTotal() {
+        if (tanggalBayar > 10) {
+            denda = 15000;
+        }
+        total = biayaPokok + biayaAdmin + denda;
+    }
+
+    @Override
+    void tampilkanRincian() {
+        System.out.println("\n=== Pembayaran SPP ===");
+        System.out.println("Nama          : " + siswa.nama);
+        System.out.println("NIS           : " + siswa.NIS);
+        System.out.println("Bulan         : " + bulan + " " + tahun);
+        System.out.println("Biaya Pokok   : Rp" + biayaPokok);
+        System.out.println("Biaya Admin   : Rp" + biayaAdmin);
+        System.out.println("Denda         : Rp" + denda);
+        System.out.println("Total Bayar   : Rp" + total);
+    }
+}
+
+class PembayaranSeragam extends Pembayaran {
+    String ukuran;
+    double hargaDasar;
+    double tambahan = 0;
+    double biayaAdmin = 5000;
+
+    public PembayaranSeragam(Siswa siswa, String ukuran, double hargaDasar) {
+        super(siswa);
+        this.ukuran = ukuran;
+        this.hargaDasar = hargaDasar;
+        hitungTotal();
+    }
+
+    @Override
+    void hitungTotal() {
+        if (ukuran.equalsIgnoreCase("XL")) {
+            tambahan = 20000;
+        }
+        total = hargaDasar + tambahan + biayaAdmin;
+    }
+
+    @Override
+    void tampilkanRincian() {
+        System.out.println("\n=== Pembayaran Seragam ===");
+        System.out.println("Nama          : " + siswa.nama);
+        System.out.println("NIS           : " + siswa.NIS);
+        System.out.println("Ukuran        : " + ukuran);
+        System.out.println("Harga Dasar   : Rp" + hargaDasar);
+        System.out.println("Tambahan      : Rp" + tambahan);
+        System.out.println("Biaya Admin   : Rp" + biayaAdmin);
+        System.out.println("Total Bayar   : Rp" + total);
+    }
+}
+
+public class UTSTUGAS {
+
+    static Scanner sc = new Scanner(System.in);
+
+    static ArrayList<String> riwayatSPP = new ArrayList<>();
+    static ArrayList<String> riwayatSeragam = new ArrayList<>();
+    static ArrayList<Siswa> dataSiswa = new ArrayList<>();
+
+    static {
+        dataSiswa.add(new Siswa("sasi", "1234", "123"));
+        dataSiswa.add(new Siswa("putri", "5678", "567"));
+    }
+
+    public static void main(String[] args) {
+        String role = login();
+
+        if (role.equals("admin")) {
+            System.out.println("Login sebagai ADMIN");
+        } else {
+            menuUser();
+        }
+    }
+
+    static String login() {
+        while (true) {
+            System.out.println("=== LOGIN ===");
+
+            System.out.print("NIS      : ");
+            String input = sc.nextLine();
+
+            System.out.print("Nama     : ");
+            String nama = sc.nextLine();
+
+            System.out.print("Password : ");
+            String pass = sc.nextLine();
+
+            if (input.equals("admin") && pass.equals("admin")) {
+                return "admin";
+            }
+
+            for (Siswa s : dataSiswa) {
+                if (s.NIS.equals(input)
+                        && s.nama.equalsIgnoreCase(nama)
+                        && s.password.equals(pass)) {
+
+                    System.out.println("Login berhasil sebagai: " + s.nama);
+                    return "user";
+                }
+            }
+
+            System.out.println("Login gagal!\n");
+        }
+    }
+
+    static void menuUser() {
+        while (true) {
+            System.out.println("\n=== MENU ===");
+            System.out.println("1. Bayar SPP");
+            System.out.println("2. Bayar Seragam");
+            System.out.println("3. Keluar");
+            System.out.print("Pilih: ");
+
+            int pilih = sc.nextInt();
+            sc.nextLine();
+
+            if (pilih == 1) {
+                bayarSPP();
+            } else if (pilih == 2) {
+                bayarSeragam();
+            } else if (pilih == 3) {
+                System.out.println("Terima kasih.");
+                break;
+            } else {
+                System.out.println("Pilihan tidak tersedia.");
+            }
+        }
+    }
+
+    static void bayarSPP() {
+        System.out.print("Nama           : ");
+        String nama = sc.nextLine();
+
+        System.out.print("NIS            : ");
+        String nis = sc.nextLine();
+
+        System.out.print("Bulan          : ");
+        String bulan = sc.nextLine();
+
+        System.out.print("Tahun          : ");
+        int tahun = sc.nextInt();
+
+        System.out.print("Tanggal Bayar  : ");
+        int tgl = sc.nextInt();
+
+        System.out.print("Biaya Pokok    : ");
+        double biaya = sc.nextDouble();
+        sc.nextLine();
+
+        String key = nis + bulan + tahun;
+
+        if (riwayatSPP.contains(key)) {
+            System.out.println("Sudah bayar bulan ini!");
+            return;
+        }
+
+        riwayatSPP.add(key);
+
+        Siswa s = new Siswa(nama, nis, "");
+        PembayaranSPP p = new PembayaranSPP(s, bulan, tahun, tgl, biaya);
+
+        p.tampilkanRincian();
+    }
+
+    static void bayarSeragam() {
+        System.out.print("Nama    : ");
+        String nama = sc.nextLine();
+
+        System.out.print("NIS     : ");
+        String nis = sc.nextLine();
+
+        if (riwayatSeragam.contains(nis)) {
+            System.out.println("Sudah pernah beli seragam!");
+            return;
+        }
+
+        System.out.print("Ukuran (S/M/L/XL): ");
+        String ukuran = sc.nextLine();
+
+        System.out.print("Harga   : ");
+        double harga = sc.nextDouble();
+        sc.nextLine();
+
+        riwayatSeragam.add(nis);
+
+        Siswa s = new Siswa(nama, nis, "");
+        PembayaranSeragam p = new PembayaranSeragam(s, ukuran, harga);
+
+        p.tampilkanRincian();
+    }
+}
